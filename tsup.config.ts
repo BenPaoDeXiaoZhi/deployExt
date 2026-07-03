@@ -11,6 +11,7 @@ export default defineConfig({
     "@ccw-api/api",
     "ali-oss",
     "crypto-js",
+    "jszip",
   ],
   external: ["proxy-agent"],
 });
