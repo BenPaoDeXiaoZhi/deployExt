@@ -5,11 +5,8 @@ inputs:
     description: The Extension file you want to deploy
     default: dist/index.js
     required: true
-  project-file-id:
-    description: the sb3 file md5
-    required: true
-  user-dir:
-    description: the user directory for sb3
+  project-oid:
+    description: the project oid
     required: true
   token:
     description: ccw token

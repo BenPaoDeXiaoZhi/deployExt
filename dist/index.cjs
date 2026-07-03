@@ -19197,7 +19197,7 @@ function info(message) {
 
 // src/index.ts
 var import_path = require("path");
-var import_api2 = require("@ccw-api/api");
+var import_api3 = require("@ccw-api/api");
 var import_ali_oss = __toESM(require("ali-oss"), 1);
 
 // src/getOssToken.ts
@@ -19217,14 +19217,14 @@ async function getOssToken() {
 // src/loadProject.ts
 var import_crypto_js2 = require("crypto-js");
 var import_jszip = __toESM(require("jszip"), 1);
-async function loadProject(userFolder, fileName) {
-  const project = await getSb3(userFolder, fileName);
+async function loadProject(userFolder, sb3MD5) {
+  const project = await getSb3(userFolder, sb3MD5);
   const encryptedBs64 = await project.file("project.json").async("string");
   return JSON.parse(decryptProjectJson(encryptedBs64));
 }
-async function getSb3(userFolder, fileName) {
+async function getSb3(userFolder, sb3MD5) {
   const url = new URL(
-    `${userFolder}/${fileName}.sb3`,
+    `${userFolder}/${sb3MD5}.sb3`,
     "https://zhishi.oss-cn-beijing.aliyuncs.com/user_projects_sb3/"
   );
   const encrypted = await fetch(url).then((res) => {
@@ -19233,7 +19233,7 @@ async function getSb3(userFolder, fileName) {
     }
     return res.text();
   });
-  const key = import_crypto_js2.enc.Base64.parse("KzdnFCBRvq3" + fileName);
+  const key = import_crypto_js2.enc.Base64.parse("KzdnFCBRvq3" + sb3MD5);
   key.sigBytes = 32;
   const iv = key.clone();
   iv.sigBytes = 16;
@@ -19260,7 +19260,7 @@ function decryptProjectJson(projectJSON) {
 // src/saveProject.ts
 var import_crypto_js3 = require("crypto-js");
 var import_jszip2 = __toESM(require("jszip"), 1);
-async function saveProject(oss, userFolder, sb3FileName, project) {
+async function saveProject(oss, userFolder, sb3MD5, project) {
   const encryptedProjectJSON = encryptProjectJSON(project);
   const sb3 = new import_jszip2.default();
   sb3.file("project.json", encryptedProjectJSON);
@@ -19271,12 +19271,12 @@ async function saveProject(oss, userFolder, sb3FileName, project) {
       level: 6
     }
   });
-  const encryptedSb3 = encryptSb3(bytes, sb3FileName);
+  const encryptedSb3 = encryptSb3(bytes, sb3MD5);
   const buffer = Buffer.from(encryptedSb3);
-  await oss.put(`user_projects_sb3/${userFolder}/${sb3FileName}.sb3`, buffer);
+  await oss.put(`user_projects_sb3/${userFolder}/${sb3MD5}.sb3`, buffer);
 }
-function encryptSb3(bytes, fileName) {
-  const key = import_crypto_js3.enc.Base64.parse("KzdnFCBRvq3" + fileName);
+function encryptSb3(bytes, sb3MD5) {
+  const key = import_crypto_js3.enc.Base64.parse("KzdnFCBRvq3" + sb3MD5);
   key.sigBytes = 32;
   const iv = key.clone();
   iv.sigBytes = 16;
@@ -19354,18 +19354,30 @@ async function deploy(project, oss, extPath) {
   return project;
 }
 
+// src/resolveProjectUrl.ts
+var import_api2 = require("@ccw-api/api");
+async function getUserFolderAndSb3MD5(projectOid2) {
+  const { latestProjectLink } = await import_api2.communityWeb.getCreationDetail(
+    projectOid2,
+    "",
+    "EDIT"
+  );
+  const userFolder = latestProjectLink.split("/").at(-2);
+  const [sb3MD5] = latestProjectLink.split("/").at(-1).split(".");
+  return { userFolder, sb3MD5 };
+}
+
 // src/index.ts
 var file = getInput("file") || "test.js";
 var ccwToken = getInput("token") || process.env.CCW_TOKEN;
 var root = process.env.GITHUB_WORKSPACE || "./";
-var userDir = getInput("user-dir") || process.env.USER_DIR;
-var projectFileId = getInput("project-file-id") || process.env.PROJECT_FILE_ID;
-if (!ccwToken || !userDir || !projectFileId) {
+var projectOid = getInput("project-oid") || process.env.PROJECT_OID;
+if (!ccwToken || !projectOid) {
   error("[CCW Extension Deploy] config error!");
   process.exit(1);
 }
 async function main() {
-  (0, import_api2.setToken)(ccwToken);
+  (0, import_api3.setToken)(ccwToken);
   const extPath = (0, import_path.resolve)(root, file);
   info(`[CCW Extension Deploy] deploying "${extPath}" to ccw`);
   const { accessKeyId, accessKeySecret, stsToken } = await getOssToken();
@@ -19377,10 +19389,11 @@ async function main() {
     bucket: "zhishi",
     region: "oss-cn-beijing"
   });
-  let project = await loadProject(userDir, projectFileId);
-  saveProject(oss, userDir, projectFileId, project);
+  const { userFolder, sb3MD5 } = await getUserFolderAndSb3MD5(projectOid);
+  let project = await loadProject(userFolder, sb3MD5);
+  saveProject(oss, userFolder, sb3MD5, project);
   project = await deploy(project, oss, extPath);
-  await saveProject(oss, userDir, projectFileId, project);
+  await saveProject(oss, userFolder, sb3MD5, project);
   info("[CCW Extension Deploy] successfully deployed extension");
 }
 main().catch((e) => error(`[ccw ext deploy] ${e}`));

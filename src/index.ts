@@ -6,15 +6,14 @@ import { getOssToken } from "./getOssToken";
 import { loadProject } from "./loadProject";
 import { saveProject } from "./saveProject";
 import { deploy } from "./deploy";
+import { getUserFolderAndSb3MD5 } from "./resolveProjectUrl";
 
 const file = getInput("file") || "test.js";
 const ccwToken = getInput("token") || process.env.CCW_TOKEN;
 const root = process.env.GITHUB_WORKSPACE || "./";
-const userDir = getInput("user-dir") || process.env.USER_DIR;
-const projectFileId =
-  getInput("project-file-id") || process.env.PROJECT_FILE_ID;
+const projectOid = getInput("project-oid") || process.env.PROJECT_OID;
 
-if (!ccwToken || !userDir || !projectFileId) {
+if (!ccwToken || !projectOid) {
   error("[CCW Extension Deploy] config error!");
   process.exit(1);
 }
@@ -32,10 +31,11 @@ async function main() {
     bucket: "zhishi",
     region: "oss-cn-beijing",
   });
-  let project = await loadProject(userDir, projectFileId);
-  saveProject(oss, userDir, projectFileId, project);
+  const { userFolder, sb3MD5 } = await getUserFolderAndSb3MD5(projectOid);
+  let project = await loadProject(userFolder, sb3MD5);
+  saveProject(oss, userFolder, sb3MD5, project);
   project = await deploy(project, oss, extPath);
-  await saveProject(oss, userDir, projectFileId, project);
+  await saveProject(oss, userFolder, sb3MD5, project);
   info("[CCW Extension Deploy] successfully deployed extension");
 }
 

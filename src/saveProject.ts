@@ -6,7 +6,7 @@ import JSZip from "jszip";
 export async function saveProject(
   oss: OSS,
   userFolder: string,
-  sb3FileName: string,
+  sb3MD5: string,
   project: Project,
 ) {
   const encryptedProjectJSON = encryptProjectJSON(project);
@@ -19,13 +19,13 @@ export async function saveProject(
       level: 6,
     },
   });
-  const encryptedSb3 = encryptSb3(bytes, sb3FileName);
+  const encryptedSb3 = encryptSb3(bytes, sb3MD5);
   const buffer = Buffer.from(encryptedSb3);
-  await oss.put(`user_projects_sb3/${userFolder}/${sb3FileName}.sb3`, buffer);
+  await oss.put(`user_projects_sb3/${userFolder}/${sb3MD5}.sb3`, buffer);
 }
 
-function encryptSb3(bytes: Uint8Array, fileName: string) {
-  const key = enc.Base64.parse("KzdnFCBRvq3" + fileName);
+function encryptSb3(bytes: Uint8Array, sb3MD5: string) {
+  const key = enc.Base64.parse("KzdnFCBRvq3" + sb3MD5);
   key.sigBytes = 32;
   const iv = key.clone();
   iv.sigBytes = 16;

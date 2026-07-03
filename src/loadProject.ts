@@ -1,19 +1,20 @@
 import { AES, enc, mode } from "crypto-js";
 import JSZip from "jszip";
 import { Project } from "./types/project";
+import { communityWeb } from "@ccw-api/api";
 
 export async function loadProject(
   userFolder: string,
-  fileName: string,
+  sb3MD5: string,
 ): Promise<Project> {
-  const project = await getSb3(userFolder, fileName);
+  const project = await getSb3(userFolder, sb3MD5);
   const encryptedBs64 = await project.file("project.json").async("string");
   return JSON.parse(decryptProjectJson(encryptedBs64));
 }
 
-async function getSb3(userFolder: string, fileName: string): Promise<JSZip> {
+async function getSb3(userFolder: string, sb3MD5: string): Promise<JSZip> {
   const url = new URL(
-    `${userFolder}/${fileName}.sb3`,
+    `${userFolder}/${sb3MD5}.sb3`,
     "https://zhishi.oss-cn-beijing.aliyuncs.com/user_projects_sb3/",
   );
   const encrypted = await fetch(url).then((res) => {
@@ -22,7 +23,7 @@ async function getSb3(userFolder: string, fileName: string): Promise<JSZip> {
     }
     return res.text();
   });
-  const key = enc.Base64.parse("KzdnFCBRvq3" + fileName);
+  const key = enc.Base64.parse("KzdnFCBRvq3" + sb3MD5);
   key.sigBytes = 32;
   const iv = key.clone();
   iv.sigBytes = 16;
