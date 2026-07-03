@@ -1,28 +1,31 @@
 {
-  "name": "deploy-ext",
-  "version": "0.0.0",
+  "name": "ccw-ext-deploy",
+  "version": "0.0.1",
   "description": "deploy ext to ccw",
   "license": "MIT",
-  "author": "",
+  "author": "BenPaoDeXiaoZhi",
   "type": "module",
-  "main": "dist/index.js",
-  "tsup": {
-    "entry": [
-      "src/index.ts"
-    ],
-    "splitting": false,
-    "sourcemap": true,
-    "clean": true
-  },
+  "main": "dist/index.cjs",
   "scripts": {
-    "test": "node dist/index.js"
+    "test": "node  --env-file=.env dist/index.cjs",
+    "build": "tsup",
+    "dev": "tsup --watch"
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
-    "@actions/github": "^9.1.1"
+    "@actions/github": "^9.1.1",
+    "@ccw-api/api": "^0.9.0",
+    "@turbowarp/types": "^0.0.14",
+    "ali-oss": "^6.23.0",
+    "crypto-js": "^4.2.0",
+    "jszip": "^3.10.1"
   },
   "devDependencies": {
+    "@types/ali-oss": "^6.23.3",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^26.1.0",
-    "tsup": "^8.5.1"
+    "dotenv": "^17.4.2",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
   }
 }

@@ -3,7 +3,10 @@
     "lib": ["ESNext"],
     "strict": false,
     "target": "esnext",
-    "moduleResolution": "nodenext",
-    "module": "nodenext"
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "paths": {
+      "scratch-vm": ["./node_modules/@turbowarp/types/index.d.ts"]
+    }
   }
 }
