@@ -5,5 +5,12 @@ export default defineConfig({
   splitting: false,
   sourcemap: false,
   clean: true,
-  noExternal: ["@actions/core", "@actions/github"],
+  noExternal: [
+    "axios",
+    "@actions/core",
+    "@ccw-api/api",
+    "ali-oss",
+    "crypto-js",
+  ],
+  external: ["proxy-agent"],
 });

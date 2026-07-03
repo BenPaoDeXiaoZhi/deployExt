@@ -1,6 +1,6 @@
 {
   "name": "ccw-ext-deploy",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "deploy ext to ccw",
   "license": "MIT",
   "author": "BenPaoDeXiaoZhi",
@@ -13,9 +13,7 @@
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
-    "@actions/github": "^9.1.1",
     "@ccw-api/api": "^0.9.1",
-    "@turbowarp/types": "^0.0.14",
     "ali-oss": "^6.23.0",
     "crypto-js": "^4.2.0",
     "jszip": "^3.10.1"
