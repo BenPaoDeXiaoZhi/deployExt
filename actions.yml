@@ -1,0 +1,21 @@
+name: CCW Deployment
+description: Deploy Extension To CCW
+inputs:
+  file:
+    description: The Extension file you want to deploy
+    type: string
+    default: dist/index.js
+    required: false
+  project-file-id:
+    description: the sb3 file md5
+    type: string
+    default: "md5"
+    required: true
+  user-dir:
+    description: the user directory for sb3
+    type: string
+    default: 241000000
+    required: true
+runs:
+  using: node24
+  main: dist/main.js
