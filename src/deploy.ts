@@ -34,6 +34,11 @@ async function updateExtFile(
   oss: OSS,
   extPath: string,
 ): Promise<Project> {
+  if (!project.gandi) {
+    project.gandi = {
+      assets: [],
+    };
+  }
   const { assets } = project.gandi;
   const extContent = readFileSync(extPath).toString("utf-8");
   const extMD5 = MD5(extContent).toString();

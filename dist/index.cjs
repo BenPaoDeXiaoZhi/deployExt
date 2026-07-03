@@ -78872,6 +78872,11 @@ time: ${getDate()}`
   return project;
 }
 async function updateExtFile(project, oss, extPath) {
+  if (!project.gandi) {
+    project.gandi = {
+      assets: []
+    };
+  }
   const { assets } = project.gandi;
   const extContent = (0, import_fs2.readFileSync)(extPath).toString("utf-8");
   const extMD5 = (0, import_crypto_js5.MD5)(extContent).toString();
