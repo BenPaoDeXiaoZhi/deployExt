@@ -1,5 +1,8 @@
 name: CCW Extension Deployment
 description: Deploy Extension To CCW
+branding:
+  icon: upload-cloud
+  color: blue
 inputs:
   file:
     description: The Extension file you want to deploy
