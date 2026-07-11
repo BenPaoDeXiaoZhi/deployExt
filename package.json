@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
-    "@ccw-api/api": "^0.9.1",
+    "@ccw-api/api": "^0.10.3",
     "ali-oss": "^6.23.0",
     "crypto-js": "^4.2.0",
     "jszip": "^3.10.1"

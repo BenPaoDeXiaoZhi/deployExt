@@ -21,7 +21,7 @@ if (!ccwToken || !projectOid) {
 async function main() {
   setToken(ccwToken);
   const extPath = resolve(root, file);
-  info(`[CCW Extension Deploy] deploying "${extPath}" to ccw`);
+  info(`[CCW Extension Deploy] Deploying "${extPath}" to ccw...`);
   const { accessKeyId, accessKeySecret, stsToken } = await getOssToken();
   const oss = new OSS({
     refreshSTSToken: getOssToken,
@@ -36,7 +36,7 @@ async function main() {
   saveProject(oss, userFolder, sb3MD5, project);
   project = await deploy(project, oss, extPath);
   await saveProject(oss, userFolder, sb3MD5, project);
-  info("[CCW Extension Deploy] successfully deployed extension");
+  info("[CCW Extension Deploy] Successfully deployed extension!");
 }
 
 main().catch((e) => error(`[ccw ext deploy] ${e}`));
