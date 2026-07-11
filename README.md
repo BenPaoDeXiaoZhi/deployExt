@@ -47,3 +47,7 @@ jobs:
 ### 获取 project-oid
 
 项目 URL 形如 `https://www.ccw.site/gandi/extension/6a478a20657fa02c80b54350`，其中 `6a478a20657fa02c80b54350` 即为 `project-oid`。
+
+### 关于ignore deprecations
+
+ali-oss 6.23版本setRegion函数内使用了url.parse, 会造成警告
