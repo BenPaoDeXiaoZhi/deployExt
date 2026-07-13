@@ -19,6 +19,7 @@ export interface GandiAsset<
 }
 
 export interface Target {
+  id?: string;
   isStage: boolean;
   name: string;
   variables: Record<string, [string, number]>;

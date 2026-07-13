@@ -1,7 +1,6 @@
 import { AES, enc, mode } from "crypto-js";
 import JSZip from "jszip";
 import { Project } from "./types/project";
-import { communityWeb } from "@ccw-api/api";
 
 export async function loadProject(
   userFolder: string,

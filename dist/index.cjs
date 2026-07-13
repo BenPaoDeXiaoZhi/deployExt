@@ -78456,7 +78456,7 @@ function decryptProjectJson(projectJSON) {
 // src/saveProject.ts
 var import_crypto_js4 = __toESM(require_crypto_js(), 1);
 var import_jszip2 = __toESM(require_lib8(), 1);
-async function saveProject(oss, userFolder, sb3MD5, project) {
+async function saveProject(oss, userFolder, sb3MD5, project, isTeamwork) {
   const encryptedProjectJSON = encryptProjectJSON(project);
   const sb3 = new import_jszip2.default();
   sb3.file("project.json", encryptedProjectJSON);
@@ -78469,7 +78469,9 @@ async function saveProject(oss, userFolder, sb3MD5, project) {
   });
   const encryptedSb3 = encryptSb3(bytes, sb3MD5);
   const buffer = Buffer.from(encryptedSb3);
-  await oss.put(`user_projects_sb3/${userFolder}/${sb3MD5}.sb3`, buffer);
+  if (!isTeamwork) {
+    await oss.put(`user_projects_sb3/${userFolder}/${sb3MD5}.sb3`, buffer);
+  }
 }
 function encryptSb3(bytes, sb3MD5) {
   const key = import_crypto_js4.enc.Base64.parse("KzdnFCBRvq3" + sb3MD5);
@@ -78499,12 +78501,13 @@ var import_crypto_js5 = __toESM(require_crypto_js(), 1);
 function getDate() {
   return (/* @__PURE__ */ new Date()).toLocaleString("en-US", { timeZone: "Asia/Shanghai" });
 }
-function updateComment(project) {
+async function updateComment(project, tw) {
   const stage = project.targets.find((t) => t.isStage);
   if (!stage) {
     throw new Error("failed to get stage target");
   }
-  stage.comments["CCW_EXT_DEPLOY"] = {
+  const comment = {
+    id: "CCW_EXT_DEPLOY",
     blockId: null,
     x: 0,
     y: 0,
@@ -78517,9 +78520,23 @@ actor: ${process.env.GITHUB_ACTOR}
 sha: ${process.env.GITHUB_SHA}
 time: ${getDate()}`
   };
+  if (tw) {
+    if (!stage.id) {
+      error(
+        "[CCW Extension Deploy] Failed to get Stage target id of the teamwork project!"
+      );
+      throw new Error("Failed to get Stage target id");
+    }
+    if ("CCW_EXT_DEPLOY" in stage.comments) {
+      await tw.updateComment(stage.id, comment);
+    } else {
+      await tw.createComment(stage.id, comment);
+    }
+  }
+  stage.comments["CCW_EXT_DEPLOY"] = comment;
   return project;
 }
-async function updateExtFile(project, oss, extPath) {
+async function updateExtFile(project, oss, extPath, tw) {
   if (!project.gandi) {
     project.gandi = {
       assets: []
@@ -78542,34 +78559,35 @@ async function updateExtFile(project, oss, extPath) {
       md5ext: `${extMD5}.js`,
       dataFormat: "js"
     };
+    if (tw) {
+      await tw.createGandiAsset(extAsset);
+    }
     assets.push(extAsset);
   }
   extAsset.assetId = extMD5;
   extAsset.md5ext = `${extMD5}.js`;
+  if (tw) {
+    await tw.updateGandiAsset(extAsset);
+  }
   project.gandi.assets = assets;
   return project;
 }
-async function deploy(project, oss, extPath) {
-  project = await updateExtFile(project, oss, extPath);
-  project = updateComment(project);
+async function deploy(project, oss, extPath, teamwork) {
+  project = await updateExtFile(project, oss, extPath, teamwork);
+  project = await updateComment(project, teamwork);
   return project;
 }
 
 // src/resolveProjectUrl.ts
 async function getUserFolderAndSb3MD5(projectOid2) {
   const { latestProjectLink, isTeamwork } = await St.getCreationDetail(projectOid2, "", "EDIT");
-  if (isTeamwork) {
-    error(
-      `[CCW Extension Deploy] TODO: Teamwork project is not supported yet!`
-    );
-    throw new Error("teamwork not supported yet");
-  }
   const userFolder = latestProjectLink.split("/").at(-2);
   const [sb3MD5] = latestProjectLink.split("/").at(-1).split(".");
-  return { userFolder, sb3MD5 };
+  return { userFolder, sb3MD5, isTeamwork };
 }
 
 // src/index.ts
+var import_teamwork = require("@ccw-api/teamwork");
 var file = getInput("file") || "test.js";
 var ccwToken = getInput("token") || process.env.CCW_TOKEN;
 var root = process.env.GITHUB_WORKSPACE || "./";
@@ -78591,12 +78609,29 @@ async function main() {
     bucket: "zhishi",
     region: "oss-cn-beijing"
   });
-  const { userFolder, sb3MD5 } = await getUserFolderAndSb3MD5(projectOid);
-  let project = await loadProject(userFolder, sb3MD5);
-  saveProject(oss, userFolder, sb3MD5, project);
-  project = await deploy(project, oss, extPath);
-  await saveProject(oss, userFolder, sb3MD5, project);
+  const { userFolder, sb3MD5, isTeamwork } = await getUserFolderAndSb3MD5(projectOid);
+  let project;
+  let tw;
+  if (isTeamwork) {
+    info(
+      `[CCW Extension Deploy] Initializing teamwork for Project ${projectOid}`
+    );
+    tw = new import_teamwork.Teamwork(ccwToken, projectOid);
+    const meta = await tw.connect();
+    const { fullJson: fullJson_ } = meta;
+    const fullJson = JSON.parse(fullJson_);
+    project = fullJson;
+  } else {
+    project = await loadProject(userFolder, sb3MD5);
+  }
+  project = await deploy(project, oss, extPath, tw);
+  if (!tw) {
+    await saveProject(oss, userFolder, sb3MD5, project, isTeamwork);
+  }
   info("[CCW Extension Deploy] Successfully deployed extension!");
+  if (tw) {
+    tw.dispose();
+  }
 }
 main().catch((e) => error(`[ccw ext deploy] ${e}`));
 /*! Bundled license information:

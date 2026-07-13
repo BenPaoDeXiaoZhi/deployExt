@@ -1,19 +1,20 @@
 {
   "name": "ccw-ext-deploy",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "deploy ext to ccw",
   "license": "MIT",
   "author": "BenPaoDeXiaoZhi",
   "type": "module",
   "main": "dist/index.cjs",
   "scripts": {
-    "test": "node --ignore-deprecation --env-file=.env dist/index.cjs",
+    "test": "npm run build & node --env-file=.env dist/index.cjs",
     "build": "tsup",
     "dev": "tsup --watch"
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
     "@ccw-api/api": "^0.10.3",
+    "@ccw-api/teamwork": "^0.1.1",
     "ali-oss": "^6.23.0",
     "crypto-js": "^4.2.0",
     "jszip": "^3.10.1"

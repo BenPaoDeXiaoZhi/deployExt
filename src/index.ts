@@ -7,6 +7,8 @@ import { loadProject } from "./loadProject";
 import { saveProject } from "./saveProject";
 import { deploy } from "./deploy";
 import { getUserFolderAndSb3MD5 } from "./resolveProjectUrl";
+import { Teamwork } from "@ccw-api/teamwork";
+import { Project } from "./types/project";
 
 const file = getInput("file") || "test.js";
 const ccwToken = getInput("token") || process.env.CCW_TOKEN;
@@ -31,12 +33,30 @@ async function main() {
     bucket: "zhishi",
     region: "oss-cn-beijing",
   });
-  const { userFolder, sb3MD5 } = await getUserFolderAndSb3MD5(projectOid);
-  let project = await loadProject(userFolder, sb3MD5);
-  saveProject(oss, userFolder, sb3MD5, project);
-  project = await deploy(project, oss, extPath);
-  await saveProject(oss, userFolder, sb3MD5, project);
+  const { userFolder, sb3MD5, isTeamwork } =
+    await getUserFolderAndSb3MD5(projectOid);
+  let project: Project;
+  let tw: Teamwork | null;
+  if (isTeamwork) {
+    info(
+      `[CCW Extension Deploy] Initializing teamwork for Project ${projectOid}`,
+    );
+    tw = new Teamwork(ccwToken, projectOid);
+    const meta: any = await tw.connect();
+    const { fullJson: fullJson_ } = meta;
+    const fullJson = JSON.parse(fullJson_);
+    project = fullJson;
+  } else {
+    project = await loadProject(userFolder, sb3MD5);
+  }
+  project = await deploy(project, oss, extPath, tw);
+  if (!tw) {
+    await saveProject(oss, userFolder, sb3MD5, project, isTeamwork);
+  }
   info("[CCW Extension Deploy] Successfully deployed extension!");
+  if (tw) {
+    tw.dispose();
+  }
 }
 
 main().catch((e) => error(`[ccw ext deploy] ${e}`));

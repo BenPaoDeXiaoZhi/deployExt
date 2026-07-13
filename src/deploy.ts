@@ -2,18 +2,23 @@ import { readFileSync } from "fs";
 import { Project } from "./types/project";
 import { MD5 } from "crypto-js";
 import OSS from "ali-oss";
-import { warning } from "@actions/core";
+import { error, warning } from "@actions/core";
+import { Teamwork } from "@ccw-api/teamwork";
 
 function getDate(): string {
   return new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" });
 }
 
-function updateComment(project: Project): Project {
+async function updateComment(
+  project: Project,
+  tw?: Teamwork,
+): Promise<Project> {
   const stage = project.targets.find((t) => t.isStage);
   if (!stage) {
     throw new Error("failed to get stage target");
   }
-  stage.comments["CCW_EXT_DEPLOY"] = {
+  const comment = {
+    id: "CCW_EXT_DEPLOY",
     blockId: null,
     x: 0,
     y: 0,
@@ -26,6 +31,20 @@ actor: ${process.env.GITHUB_ACTOR}
 sha: ${process.env.GITHUB_SHA}
 time: ${getDate()}`,
   };
+  if (tw) {
+    if (!stage.id) {
+      error(
+        "[CCW Extension Deploy] Failed to get Stage target id of the teamwork project!",
+      );
+      throw new Error("Failed to get Stage target id");
+    }
+    if ("CCW_EXT_DEPLOY" in stage.comments) {
+      await tw.updateComment(stage.id, comment);
+    } else {
+      await tw.createComment(stage.id, comment);
+    }
+  }
+  stage.comments["CCW_EXT_DEPLOY"] = comment;
   return project;
 }
 
@@ -33,6 +52,7 @@ async function updateExtFile(
   project: Project,
   oss: OSS,
   extPath: string,
+  tw?: Teamwork,
 ): Promise<Project> {
   if (!project.gandi) {
     project.gandi = {
@@ -56,16 +76,27 @@ async function updateExtFile(
       md5ext: `${extMD5}.js`,
       dataFormat: "js",
     };
+    if (tw) {
+      await tw.createGandiAsset(extAsset);
+    }
     assets.push(extAsset);
   }
   extAsset.assetId = extMD5;
   extAsset.md5ext = `${extMD5}.js`;
+  if (tw) {
+    await tw.updateGandiAsset(extAsset);
+  }
   project.gandi.assets = assets;
   return project;
 }
 
-export async function deploy(project: Project, oss: OSS, extPath: string) {
-  project = await updateExtFile(project, oss, extPath);
-  project = updateComment(project);
+export async function deploy(
+  project: Project,
+  oss: OSS,
+  extPath: string,
+  teamwork?: Teamwork,
+) {
+  project = await updateExtFile(project, oss, extPath, teamwork);
+  project = await updateComment(project, teamwork);
   return project;
 }

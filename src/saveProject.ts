@@ -8,6 +8,7 @@ export async function saveProject(
   userFolder: string,
   sb3MD5: string,
   project: Project,
+  isTeamwork: boolean,
 ) {
   const encryptedProjectJSON = encryptProjectJSON(project);
   const sb3 = new JSZip();
@@ -21,7 +22,9 @@ export async function saveProject(
   });
   const encryptedSb3 = encryptSb3(bytes, sb3MD5);
   const buffer = Buffer.from(encryptedSb3);
-  await oss.put(`user_projects_sb3/${userFolder}/${sb3MD5}.sb3`, buffer);
+  if (!isTeamwork) {
+    await oss.put(`user_projects_sb3/${userFolder}/${sb3MD5}.sb3`, buffer);
+  }
 }
 
 function encryptSb3(bytes: Uint8Array, sb3MD5: string) {
