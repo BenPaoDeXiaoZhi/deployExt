@@ -52,7 +52,6 @@ child_process = __toESM(child_process, 1);
 require("timers");
 let url = require("url");
 url = __toESM(url);
-let _ccw_api_request = require("@ccw-api/request");
 //#region node_modules/@actions/core/lib/utils.js
 /**
 * Sanitizes an input into a string so it can be passed into issueCommand safely
@@ -16351,15 +16350,15 @@ function info(message) {
 }
 //#endregion
 //#region node_modules/@ccw-api/api/dist/request-CzgJtv9u.js
-let e$1 = {
+let e$2 = {
 	post(e, n = null) {
-		return t$1.post(e, n);
+		return t$2.post(e, n);
 	},
 	get(e) {
-		return t$1.get(e);
+		return t$2.get(e);
 	}
 };
-let t$1 = {
+let t$2 = {
 	async post(e, t = null) {
 		throw Error(`requestUtils for @ccw-api/api is not initialized`);
 	},
@@ -16367,18 +16366,18 @@ let t$1 = {
 		throw Error(`requestUtils for @ccw-api/api is not initialized`);
 	}
 };
-function n$1(e) {
-	t$1 = e;
+function n$2(e) {
+	t$2 = e;
 }
 //#endregion
 //#region node_modules/@ccw-api/api/dist/queryPages-Cj4eQL4Q.js
-function e(e, t) {
+function e$1(e, t) {
 	let n = new URL(e);
 	return Object.entries(t).forEach(([e, t]) => {
 		t != null && n.searchParams.set(e, t);
 	}), n.toString();
 }
-const t = {
+const t$1 = {
 	page: 1,
 	perPage: 20,
 	sortType: `DESC`,
@@ -16386,7 +16385,7 @@ const t = {
 };
 //#endregion
 //#region node_modules/@ccw-api/api/dist/community-web-Dzl0mbbh.js
-async function r(t, n, r, i) {
+async function r$1(t, n, r, i) {
 	let a = { origin: {
 		inviterAvatar: n,
 		inviterName: r,
@@ -16395,86 +16394,86 @@ async function r(t, n, r, i) {
 		entrance: `create_detail`,
 		creationOid: i
 	} };
-	return await e$1.post(`https://community-web.ccw.site/api/v1/short_code/encode`, a).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/api/v1/short_code/encode`, a).then((e) => e.data.body);
 }
-async function i(t) {
+async function i$1(t) {
 	let n = {
 		objectId: t,
 		objectType: `STUDENT`
 	};
-	return await e$1.post(`https://community-web.ccw.site/approval/list`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/approval/list`, n).then((e) => e.data.body);
 }
-async function a() {
-	return e$1.post(`https://community-web.ccw.site/base/dateTime`, void 0).then((e) => e.data.body);
+async function a$1() {
+	return e$2.post(`https://community-web.ccw.site/base/dateTime`, void 0).then((e) => e.data.body);
 }
-async function o(t) {
-	return await e$1.post(`https://community-web.ccw.site/campaign_resource/detail`, { keyword: t }).then((e) => e.data.body);
+async function o$1(t) {
+	return await e$2.post(`https://community-web.ccw.site/campaign_resource/detail`, { keyword: t }).then((e) => e.data.body);
 }
-async function s() {
-	return await e$1.post(`https://community-web.ccw.site/check_in_record/detail`, { scene: `HOMEPAGE` }).then((e) => e.data.body);
+async function s$1() {
+	return await e$2.post(`https://community-web.ccw.site/check_in_record/detail`, { scene: `HOMEPAGE` }).then((e) => e.data.body);
 }
-async function c$1() {
-	return await e$1.post(`https://community-web.ccw.site/check_in_record/insert`, { scene: `HOMEPAGE` }).then((e) => e.data.body);
+async function c$2() {
+	return await e$2.post(`https://community-web.ccw.site/check_in_record/insert`, { scene: `HOMEPAGE` }).then((e) => e.data.body);
 }
-async function l() {
-	return await e$1.post(`https://community-web.ccw.site/cloud_asset/user/privacy`, {}).then((e) => e.data.body);
+async function l$1() {
+	return await e$2.post(`https://community-web.ccw.site/cloud_asset/user/privacy`, {}).then((e) => e.data.body);
 }
-const u = {
-	...t,
+const u$1 = {
+	...t$1,
 	sortField: `createdAt`
 };
 async function ee(n, r = `/`, i = {}) {
-	let a = e(`https://community-web.ccw.site/cloud_asset/search`, {
-		...u,
+	let a = e$1(`https://community-web.ccw.site/cloud_asset/search`, {
+		...u$1,
 		...i
 	}), o = {
 		creatorOid: n,
 		path: r
 	};
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function te(r, i, a = [`PUBLISHED`, `FOLDED`], o = { sortField: `createdAt` }) {
-	let s = e(`https://community-web.ccw.site/comment/page`, {
-		...t,
+	let s = e$1(`https://community-web.ccw.site/comment/page`, {
+		...t$1,
 		...o
 	}), c = {
 		topicId: r,
 		parentId: i,
 		statuses: a
 	};
-	return await e$1.post(s, c).then((e) => e.data.body);
+	return await e$2.post(s, c).then((e) => e.data.body);
 }
-const d$1 = {
-	...t,
+const d$2 = {
+	...t$1,
 	sortField: `createdAt`
 };
 async function f(n, r, i, a = { sortField: `createdAt` }) {
-	let o = e(`https://community-web.ccw.site/comment/page_by_topic`, {
-		...d$1,
+	let o = e$1(`https://community-web.ccw.site/comment/page_by_topic`, {
+		...d$2,
 		...a
 	}), s = {
 		subjectOid: n,
 		subjectType: r,
 		sectionType: i
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function p(t) {
 	let n = { key: t };
-	return await e$1.post(`https://community-web.ccw.site/config/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/config/detail`, n).then((e) => e.data.body);
 }
 async function m$1(r, i = { sortField: `createdAt` }) {
 	let a = {
-		...t,
+		...t$1,
 		...i
-	}, o = e(`https://community-web.ccw.site/ccw-mall/ccw/product/fe/query`, a), s = {
+	}, o = e$1(`https://community-web.ccw.site/ccw-mall/ccw/product/fe/query`, a), s = {
 		page: a.page,
 		perPage: a.perPage,
 		sortType: a.sortType,
 		productCategory: r,
 		source: `CCW_OFFICIAL`
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function h(t, n, r, i = `ORIGINAL`, a = `LANDSCAPE`, o = `PRIVATE`) {
 	let s = {
@@ -16486,7 +16485,7 @@ async function h(t, n, r, i = `ORIGINAL`, a = `LANDSCAPE`, o = `PRIVATE`) {
 		sourceOpenLevel: o,
 		latestCoverLink: r
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation/create`, s).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/create`, s).then((e) => e.data.body);
 }
 async function g(t, n, r = ``) {
 	let i = {
@@ -16494,217 +16493,217 @@ async function g(t, n, r = ``) {
 		accessKey: n,
 		mode: r
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation/detail`, i).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/detail`, i).then((e) => e.data.body);
 }
 async function _(t) {
 	let n = { num: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/excellent/list`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/excellent/list`, n).then((e) => e.data.body);
 }
 async function v(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/introduction/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/introduction/detail`, n).then((e) => e.data.body);
 }
 async function y(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/like/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/like/detail`, n).then((e) => e.data.body);
 }
 async function b() {
-	return await e$1.post(`https://community-web.ccw.site/creation/loading/tips`, {}).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/loading/tips`, {}).then((e) => e.data.body);
 }
 const x = {
-	...t,
+	...t$1,
 	sortField: `createdAt`
 };
 async function S(n, r = {}) {
-	let i = e(`https://community-web.ccw.site/creation/page`, {
+	let i = e$1(`https://community-web.ccw.site/creation/page`, {
 		...x,
 		...r
 	}), a = { remixCreationOids: n };
-	return await e$1.post(i, a).then((e) => e.data.body);
+	return await e$2.post(i, a).then((e) => e.data.body);
 }
 const C = {
-	...t,
+	...t$1,
 	sortField: `createdAt`
 };
 async function w(n, r = {}) {
-	let i = e(`https://community-web.ccw.site/creation/page_by_student`, {
+	let i = e$1(`https://community-web.ccw.site/creation/page_by_student`, {
 		...C,
 		...r
 	}), a = { studentOids: n };
-	return await e$1.post(i, a).then((e) => e.data.body);
+	return await e$2.post(i, a).then((e) => e.data.body);
 }
 async function T(t) {
 	let n = { num: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/potential/list`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/potential/list`, n).then((e) => e.data.body);
 }
 const E = {
-	...t,
+	...t$1,
 	sortField: `createdAt`
 };
 async function D(n, r = {}) {
-	let i = e(`https://community-web.ccw.site/creation/recommend`, {
+	let i = e$1(`https://community-web.ccw.site/creation/recommend`, {
 		...E,
 		...r
 	}), a = {
 		num: n,
 		subjectType: `POTENTIAL`
 	};
-	return await e$1.post(i, a).then((e) => e.data.body);
+	return await e$2.post(i, a).then((e) => e.data.body);
 }
 async function O(t = 4, n = 8) {
 	let r = {
 		excellentCount: t,
 		potentialCount: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/recommend_creator/list`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/recommend_creator/list`, r).then((e) => e.data.body);
 }
 const k = {
-	...t,
+	...t$1,
 	sortField: `createdAt`
 };
 async function A(n, r = {}) {
-	let i = e(`https://community-web.ccw.site/creation/search/page`, {
+	let i = e$1(`https://community-web.ccw.site/creation/search/page`, {
 		...k,
 		...r
 	});
-	return await e$1.post(i, n).then((e) => e.data.body);
+	return await e$2.post(i, n).then((e) => e.data.body);
 }
 async function j(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/student/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/student/detail`, n).then((e) => e.data.body);
 }
 async function M() {
-	return await e$1.post(`https://community-web.ccw.site/creation/tag/list`, { visibility: `PUBLIC` }).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/tag/list`, { visibility: `PUBLIC` }).then((e) => e.data.body);
 }
 async function N(t) {
 	let n = { originUrl: t };
-	return await e$1.post(`https://community-web.ccw.site/short_url/create`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/short_url/create`, n).then((e) => e.data.body);
 }
 async function P(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/hash_tag_creation/list_relation`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/hash_tag_creation/list_relation`, n).then((e) => e.data.body);
 }
 const F = {
-	...t,
+	...t$1,
 	sortField: `lastPassedAt`
 };
 async function I(n, r, i = {}) {
 	let a = {
 		...F,
 		...i
-	}, o = e(`https://community-web.ccw.site/hash_tag_creation/mine`, a), s = {
+	}, o = e$1(`https://community-web.ccw.site/hash_tag_creation/mine`, a), s = {
 		...a,
 		excludeHashTag: n,
 		statuses: r
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function L(t) {
 	let n = { identifier: t };
-	return await e$1.post(`https://community-web.ccw.site/hash_tag/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/hash_tag/detail`, n).then((e) => e.data.body);
 }
 const R = {
-	...t,
+	...t$1,
 	sortField: `createdAt`
 };
 async function z(n, r = [], i = {}) {
 	let a = {
 		...R,
 		...i
-	}, o = e(`https://community-web.ccw.site/hash_tag/managed/list`, a), s = {
+	}, o = e$1(`https://community-web.ccw.site/hash_tag/managed/list`, a), s = {
 		...a,
 		studentOid: n,
 		excludeHashTagIds: r
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function B(t) {
 	let n = { hashTagId: t };
-	return await e$1.post(`https://community-web.ccw.site/hash_tag_favorite/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/hash_tag_favorite/detail`, n).then((e) => e.data.body);
 }
 async function V(r, i = { sortField: `createdAt` }) {
-	let a = e(`https://community-web.ccw.site/creation_donated_record/ranking_list`, {
-		...t,
+	let a = e$1(`https://community-web.ccw.site/creation_donated_record/ranking_list`, {
+		...t$1,
 		...i
 	}), o = { creationOid: r };
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function H(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation_favorite/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation_favorite/detail`, n).then((e) => e.data.body);
 }
 async function U(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation_recommend_position/list`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation_recommend_position/list`, n).then((e) => e.data.body);
 }
 async function W(r, i = {}) {
-	let a = e(`https://community-web.ccw.site/creation_screenshot/page`, {
-		...t,
+	let a = e$1(`https://community-web.ccw.site/creation_screenshot/page`, {
+		...t$1,
 		...i
 	}), o = { subjectOid: r };
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function G(t, n = ``) {
 	let r = {
 		oid: t,
 		inviteCode: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation_stats/view`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation_stats/view`, r).then((e) => e.data.body);
 }
 async function K() {
-	return await e$1.post(`https://community-web.ccw.site/notify_message/show`, { type: `COMMENT_AUDIT` }).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/notify_message/show`, { type: `COMMENT_AUDIT` }).then((e) => e.data.body);
 }
 async function q(t) {
 	let n = { slug: t };
-	return await e$1.post(`https://community-web.ccw.site/post/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/post/detail`, n).then((e) => e.data.body);
 }
 async function J(t) {
 	let n = { length: t };
-	return await e$1.post(`https://community-web.ccw.site/search/hot_words`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/search/hot_words`, n).then((e) => e.data.body);
 }
 async function Y(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/student/block_record/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/student/block_record/detail`, n).then((e) => e.data.body);
 }
 async function X(r = { sortField: `createdAt` }) {
-	let i = e(`https://community-web.ccw.site/student/block_record/list`, {
-		...t,
+	let i = e$1(`https://community-web.ccw.site/student/block_record/list`, {
+		...t$1,
 		...r
 	});
-	return await e$1.post(i, {}).then((e) => e.data.body);
+	return await e$2.post(i, {}).then((e) => e.data.body);
 }
 async function Z(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/student/block_record/status`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/student/block_record/status`, n).then((e) => e.data.body);
 }
 async function Q() {
-	return await e$1.post(`https://community-web.ccw.site/students/creator_score`, void 0).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/creator_score`, void 0).then((e) => e.data.body);
 }
 async function ne(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/students/last_active_at`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/last_active_at`, n).then((e) => e.data.body);
 }
 async function re(t) {
 	let n = { studentOids: t };
-	return await e$1.post(`https://community-web.ccw.site/students/list`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/list`, n).then((e) => e.data.body);
 }
 async function ie(r = { sortField: `createdAt` }) {
-	let i = e(`https://community-web.ccw.site/students/list_sessions`, {
-		...t,
+	let i = e$1(`https://community-web.ccw.site/students/list_sessions`, {
+		...t$1,
 		...r
 	});
-	return await e$1.post(i, {}).then((e) => e.data.body);
+	return await e$2.post(i, {}).then((e) => e.data.body);
 }
 async function ae(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/students/profile`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/profile`, n).then((e) => e.data.body);
 }
 async function oe(r = { sortField: `createdAt` }) {
-	let i = e(`https://community-web.ccw.site/students/reputation_score_log/page`, {
-		...t,
+	let i = e$1(`https://community-web.ccw.site/students/reputation_score_log/page`, {
+		...t$1,
 		...r
 	});
-	return await e$1.post(i, {}).then((e) => e.data.body);
+	return await e$2.post(i, {}).then((e) => e.data.body);
 }
 async function se(t, n, r) {
 	let i = {
@@ -16712,11 +16711,11 @@ async function se(t, n, r) {
 		needExtraInfo: n,
 		fields: r
 	};
-	return await e$1.post(`https://community-web.ccw.site/students/self/detail`, i).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/self/detail`, i).then((e) => e.data.body);
 }
 async function ce(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/students/stats`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/stats`, n).then((e) => e.data.body);
 }
 async function le(t, n, r, i, a, o, s, c, l) {
 	let u = {
@@ -16730,112 +16729,112 @@ async function le(t, n, r, i, a, o, s, c, l) {
 		hobbies: c,
 		learnedProgrammingLanguages: l
 	};
-	return await e$1.post(`https://community-web.ccw.site/students/update`, u).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/update`, u).then((e) => e.data.body);
 }
 async function ue() {
-	return await e$1.post(`https://community-web.ccw.site/study-community/member/detail`, {}).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/member/detail`, {}).then((e) => e.data.body);
 }
 async function de(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/study-community/spread_feed/unread/count`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/spread_feed/unread/count`, n).then((e) => e.data.body);
 }
 async function fe(r, i = { sortField: `createdAt` }) {
-	let a = e(`https://community-web.ccw.site/subject_area/page`, {
-		...t,
+	let a = e$1(`https://community-web.ccw.site/subject_area/page`, {
+		...t$1,
 		...i
 	}), o = { scene: r };
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function pe(r, i = { sortField: `campaignResourceId` }) {
-	let a = e(`https://community-web.ccw.site/subject_area/page_by_channel`, {
-		...t,
+	let a = e$1(`https://community-web.ccw.site/subject_area/page_by_channel`, {
+		...t$1,
 		...i
 	}), o = {
 		channel: r,
 		scene: `CUSTOM_PAGE`
 	};
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function me(t) {
 	let n = { taskOid: t };
-	return await e$1.post(`https://community-web.ccw.site/task/award`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/task/award`, n).then((e) => e.data.body);
 }
 async function he() {
-	return await e$1.post(`https://community-web.ccw.site/task/mine`, { scene: `checkIn` }).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/task/mine`, { scene: `checkIn` }).then((e) => e.data.body);
 }
 async function ge(t) {
 	let n = { oid: t };
-	return await e$1.post(`https://community-web.ccw.site/user-card/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/user-card/detail`, n).then((e) => e.data.body);
 }
 async function _e() {
-	return await e$1.post(`https://community-web.ccw.site/user_label/list`, {}).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/user_label/list`, {}).then((e) => e.data.body);
 }
 async function ve() {
-	return await e$1.post(`https://community-web.ccw.site/currency/account/personal`).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/currency/account/personal`).then((e) => e.data.body);
 }
 async function ye() {
-	return await e$1.post(`https://community-web.ccw.site/emoji/all`, {}).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/emoji/all`, {}).then((e) => e.data.body);
 }
 async function be() {
-	return await e$1.post(`https://community-web.ccw.site/emoji/category/list`, {}).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/emoji/category/list`, {}).then((e) => e.data.body);
 }
 async function xe(r = `ENABLED`, i = { sortField: `createdAt` }) {
 	let a = {
-		...t,
+		...t$1,
 		...i
-	}, o = e(`https://community-web.ccw.site/emoji/page`, a), s = {
+	}, o = e$1(`https://community-web.ccw.site/emoji/page`, a), s = {
 		page: a.page,
 		perPage: a.perPage,
 		status: r
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function Se(t) {
 	let n = { actionId: t };
-	return await e$1.post(`https://community-web.ccw.site/event`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/event`, n).then((e) => e.data.body);
 }
 async function Ce() {
-	return await e$1.post(`https://community-web.ccw.site/health/check`).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/health/check`).then((e) => e.data.body);
 }
 async function we(t) {
 	let n = { advertisementId: t };
-	return await e$1.post(`https://community-web.ccw.site/leaflets/item/list`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/leaflets/item/list`, n).then((e) => e.data.body);
 }
 async function Te(t) {
 	let n = { accountOid: t };
-	return await e$1.post(`https://community-web.ccw.site/locked_user/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/locked_user/detail`, n).then((e) => e.data.body);
 }
 async function Ee(t) {
 	let n = { studentNumber: t };
-	return await e$1.post(`https://community-web.ccw.site/muted_user/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/muted_user/detail`, n).then((e) => e.data.body);
 }
 async function De(r = `COMMENT_TO_ME`, i = { sortField: `createdAt` }) {
 	let a = {
-		...t,
+		...t$1,
 		...i
-	}, o = e(`https://community-web.ccw.site/notification/page`, a), s = {
+	}, o = e$1(`https://community-web.ccw.site/notification/page`, a), s = {
 		notifyGroup: r,
 		page: a.page
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function Oe(t = !0) {
 	let n = { countAll: t };
-	return await e$1.post(`https://community-web.ccw.site/notification/stats/v2`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/notification/stats/v2`, n).then((e) => e.data.body);
 }
 async function ke(r, i = { sortField: `createdAt` }) {
-	let a = e(`https://community-web.ccw.site/typical_project/page`, {
-		...t,
+	let a = e$1(`https://community-web.ccw.site/typical_project/page`, {
+		...t$1,
 		...i
 	}), o = {
 		studentOid: r,
 		templateType: `APPLICATION`
 	};
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function Ae(t) {
 	let n = { studentOid: t };
-	return await e$1.post(`https://community-web.ccw.site/typical_project/student/unread_count`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/typical_project/student/unread_count`, n).then((e) => e.data.body);
 }
 async function je(r = { sortField: `updatedAt` }, i = [
 	`BANNED`,
@@ -16843,45 +16842,45 @@ async function je(r = { sortField: `updatedAt` }, i = [
 	`REJECTED`,
 	`SUBMITTED`
 ], a = !1) {
-	let o = e(`https://community-web.ccw.site/creation/own/page`, {
-		...t,
+	let o = e$1(`https://community-web.ccw.site/creation/own/page`, {
+		...t$1,
 		...r
 	}), s = {
 		statuses: i,
 		ignoreTypicalProject: a
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function Me(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/team_member/observer_invite_token/fetch`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/team_member/observer_invite_token/fetch`, n).then((e) => e.data.body);
 }
 async function Ne(t, n = `MEMBER`) {
 	let r = {
 		creationOid: t,
 		authority: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation/team_member/invite_token/fetch`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/team_member/invite_token/fetch`, r).then((e) => e.data.body);
 }
 async function Pe(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/team_member/produce_ticket`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/team_member/produce_ticket`, n).then((e) => e.data.body);
 }
 async function Fe(t, n) {
 	let r = {
 		creationOid: t,
 		authorities: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation/team_member/list`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/team_member/list`, r).then((e) => e.data.body);
 }
 async function Ie(r, i, a = { sortField: `createdAt` }) {
-	let o = e(`https://community-web.ccw.site/creation/teamwork_log/page`, {
-		...t,
+	let o = e$1(`https://community-web.ccw.site/creation/teamwork_log/page`, {
+		...t$1,
 		...a
 	}), s = {
 		creationId: r,
 		operateTargets: i
-	}, c = await e$1.post(o, s).then((e) => e.data.body), { data: l } = c, u = l.map((e) => {
+	}, c = await e$2.post(o, s).then((e) => e.data.body), { data: l } = c, u = l.map((e) => {
 		let { content: t } = e;
 		return {
 			...e,
@@ -16904,14 +16903,14 @@ async function Le(t, n, r = `LANDSCAPE`, i) {
 		screenMode: r,
 		latestCoverLink: i
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation/update`, a).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/update`, a).then((e) => e.data.body);
 }
 async function Re(t) {
-	return await e$1.post(`https://community-web.ccw.site/creation/submit`, t).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/submit`, t).then((e) => e.data.body);
 }
 async function ze(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/creation/smart_contract/split_rule/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/smart_contract/split_rule/detail`, n).then((e) => e.data.body);
 }
 async function Be(t, n, r = `86`) {
 	let i = {
@@ -16921,14 +16920,14 @@ async function Be(t, n, r = `86`) {
 		scene: `bindPhone`,
 		countryCode: r
 	};
-	return await e$1.post(`https://community-web.ccw.site/students/bind_phone`, i).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/bind_phone`, i).then((e) => e.data.body);
 }
 async function Ve(t, n) {
 	let r = {
 		newPassword: t,
 		code: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/students/password/change`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/students/password/change`, r).then((e) => e.data.body);
 }
 async function He(t = `change_password`, n = `86`, r = `ccw_sms`, i = `SMS`) {
 	let a = {
@@ -16937,17 +16936,17 @@ async function He(t = `change_password`, n = `86`, r = `ccw_sms`, i = `SMS`) {
 		scene: t,
 		ruleCode: r
 	};
-	return await e$1.post(`https://community-web.ccw.site/captcha/v2/create_by_session`, a).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/captcha/v2/create_by_session`, a).then((e) => e.data.body);
 }
 async function Ue(t, n) {
 	let r = {
 		creationOid: t,
 		memberSplitDetails: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation/smart_contract/split_rule/create`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation/smart_contract/split_rule/create`, r).then((e) => e.data.body);
 }
 async function We(t) {
-	let n = { creationOid: t }, r = await e$1.post(`https://community-web.ccw.site/creation_attribute/detail`, n).then((e) => e.data.body);
+	let n = { creationOid: t }, r = await e$2.post(`https://community-web.ccw.site/creation_attribute/detail`, n).then((e) => e.data.body);
 	if (r === null) return null;
 	let { ext: { KEYPAD_CONFIG: i } } = r, a = JSON.parse(i);
 	return {
@@ -16960,65 +16959,65 @@ async function Ge(t) {
 		creationOid: t,
 		type: `DAY`
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation_activity_stats/list`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation_activity_stats/list`, n).then((e) => e.data.body);
 }
 async function Ke(r, i = { sortField: `submittedAt` }) {
-	let a = e(`https://community-web.ccw.site/creation_release/page`, {
-		...t,
+	let a = e$1(`https://community-web.ccw.site/creation_release/page`, {
+		...t$1,
 		...i
 	}), o = { creationOid: r };
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function qe(t, n) {
 	let r = {
 		creationOid: t,
 		creationReleaseOid: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/creation_release/code_profiling/detail`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/creation_release/code_profiling/detail`, r).then((e) => e.data.body);
 }
 async function Je(r, i = { sortField: `createdAt` }) {
 	let a = {
-		...t,
+		...t$1,
 		...i
-	}, o = e(`https://community-web.ccw.site/historical_team_member/page`, a), s = {
+	}, o = e$1(`https://community-web.ccw.site/historical_team_member/page`, a), s = {
 		creationOid: r,
 		page: a.page,
 		perPage: a.perPage
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function Ye(t) {
 	let n = { shortUrlCode: t };
-	return await e$1.post(`https://community-web.ccw.site/short_url/decompress`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/short_url/decompress`, n).then((e) => e.data.body);
 }
 async function Xe() {
-	return await e$1.post(`https://community-web.ccw.site/hash_tag/recommend/list`).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/hash_tag/recommend/list`).then((e) => e.data.body);
 }
 async function Ze() {
-	return await e$1.post(`https://community-web.ccw.site/ccw-main/status`, {}).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/ccw-main/status`, {}).then((e) => e.data.body);
 }
 async function Qe(t, n) {
 	let r = {
 		projectId: t,
 		variables: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/study-community/cloud_variable/create`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/cloud_variable/create`, r).then((e) => e.data.body);
 }
 async function $e(t) {
 	let n = { id: t };
-	return await e$1.post(`https://community-web.ccw.site/study-community/comment/top`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/comment/top`, n).then((e) => e.data.body);
 }
 async function et(t) {
 	let n = { id: t };
-	return await e$1.post(`https://community-web.ccw.site/study-community/comment/fold`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/comment/fold`, n).then((e) => e.data.body);
 }
 async function tt(t) {
 	let n = { id: t };
-	return await e$1.post(`https://community-web.ccw.site/study-community/comment/reset_weight`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/comment/reset_weight`, n).then((e) => e.data.body);
 }
 async function $(t) {
 	let n = { id: t };
-	return await e$1.post(`https://community-web.ccw.site/study-community/comment/delete`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/comment/delete`, n).then((e) => e.data.body);
 }
 async function nt(t, n, r) {
 	n.outline ??= `foo`;
@@ -17027,18 +17026,18 @@ async function nt(t, n, r) {
 		topic: n,
 		sectionType: r
 	};
-	return await e$1.post(`https://community-web.ccw.site/comment/create`, i).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/comment/create`, i).then((e) => e.data.body);
 }
 async function rt(t) {
 	let n = { commentId: t };
-	return await e$1.post(`https://community-web.ccw.site/comment/like_record/create`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/comment/like_record/create`, n).then((e) => e.data.body);
 }
 async function it(r, i = { sortField: `createdAt` }) {
-	let a = e(`https://community-web.ccw.site/student/following/page`, {
-		...t,
+	let a = e$1(`https://community-web.ccw.site/student/following/page`, {
+		...t$1,
 		...i
 	}), o = { studentOid: r };
-	return await e$1.post(a, o).then((e) => e.data.body);
+	return await e$2.post(a, o).then((e) => e.data.body);
 }
 async function at(t, n, r = `CREATION`) {
 	let i = {
@@ -17046,30 +17045,30 @@ async function at(t, n, r = `CREATION`) {
 		objectId: n,
 		objectType: r
 	};
-	return await e$1.post(`https://community-web.ccw.site/study-trade/trade/donate`, i).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-trade/trade/donate`, i).then((e) => e.data.body);
 }
 async function ot(r = 5, i = {}) {
 	let a = {
-		...t,
+		...t$1,
 		...i
-	}, o = e(`https://community-web.ccw.site/user_package/user_product`, a), s = {
+	}, o = e$1(`https://community-web.ccw.site/user_package/user_product`, a), s = {
 		page: a.page,
 		perPage: a.perPage,
 		sortType: a.sortType,
 		productCategory: r
 	};
-	return await e$1.post(o, s).then((e) => e.data.body);
+	return await e$2.post(o, s).then((e) => e.data.body);
 }
 async function st(t, n) {
 	let r = {
 		status: n,
 		id: t
 	};
-	return await e$1.post(`https://community-web.ccw.site/user_package/status`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/user_package/status`, r).then((e) => e.data.body);
 }
 async function ct(t) {
 	let n = { creationOid: t };
-	return await e$1.post(`https://community-web.ccw.site/great_creation/update`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/great_creation/update`, n).then((e) => e.data.body);
 }
 async function lt(t, n, r, i, a = `CREATION`) {
 	let o = {
@@ -17079,44 +17078,44 @@ async function lt(t, n, r, i, a = `CREATION`) {
 		ruleId: r,
 		params: { bucks: i }
 	};
-	return await e$1.post(`https://community-web.ccw.site/smart_contract/execute`, o).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/smart_contract/execute`, o).then((e) => e.data.body);
 }
 async function ut(t) {
 	let n = { id: t };
-	return await e$1.post(`https://community-web.ccw.site/smart_contract/account`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/smart_contract/account`, n).then((e) => e.data.body);
 }
 async function dt(t) {
 	let n = { id: t };
-	return await e$1.post(`https://community-web.ccw.site/smart_contract/detail`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/smart_contract/detail`, n).then((e) => e.data.body);
 }
 async function ft(t, n = `CREATION`) {
 	let r = {
 		bizId: t,
 		bizType: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/smart_contract/list`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/smart_contract/list`, r).then((e) => e.data.body);
 }
 async function pt(t, n) {
 	let r = {
 		playingCreationOid: t,
 		userOid: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/extensions/following/status`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/extensions/following/status`, r).then((e) => e.data.body);
 }
 async function mt(t, n) {
 	let r = {
 		playingCreationOid: t,
 		creationOid: n
 	};
-	return await e$1.post(`https://community-web.ccw.site/extensions/creation-like/detail`, r).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/extensions/creation-like/detail`, r).then((e) => e.data.body);
 }
 async function ht(t) {
 	let n = { followingOid: t };
-	return await e$1.post(`https://community-web.ccw.site/study-community/following/follow`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/following/follow`, n).then((e) => e.data.body);
 }
 async function gt(t) {
 	let n = { followingOid: t };
-	return await e$1.post(`https://community-web.ccw.site/study-community/following/unfollow`, n).then((e) => e.data.body);
+	return await e$2.post(`https://community-web.ccw.site/study-community/following/unfollow`, n).then((e) => e.data.body);
 }
 const _t = {
 	acceptAward: me,
@@ -17124,7 +17123,7 @@ const _t = {
 	changeStudentPassword: Ve,
 	createCreation: h,
 	donateTrade: at,
-	encodeShortCode: r,
+	encodeShortCode: r$1,
 	executeSmartContract: lt,
 	fetchMemberInviteToken: Ne,
 	fetchObserverInviteToken: Me,
@@ -17138,10 +17137,10 @@ const _t = {
 	foldComment: et,
 	followCreator: ht,
 	unfollowCreator: gt,
-	getApprovalTags: i,
-	getCampaignResources: o,
+	getApprovalTags: i$1,
+	getCampaignResources: o$1,
 	getCcwMainStatus: Ze,
-	getCheckInRecords: s,
+	getCheckInRecords: s$1,
 	getCodeProfilingDetail: qe,
 	getCommentReplies: te,
 	getCommentsByTopic: f,
@@ -17210,16 +17209,16 @@ const _t = {
 	getSubjectAreaPageByChannel: pe,
 	getTeamMemberList: Fe,
 	getTeamworkLogPage: Ie,
-	getTime: a,
+	getTime: a$1,
 	getTypicalProjectPage: ke,
 	getTypicalProjectUnreadCount: Ae,
-	getUserAssetStorageSize: l,
+	getUserAssetStorageSize: l$1,
 	getUserCardDetail: ge,
 	getUserLabelList: _e,
 	getUserProductsPage: ot,
 	queryMallProducts: m$1,
 	getCreationsByStudent: w,
-	insertCheckInRecord: c$1,
+	insertCheckInRecord: c$2,
 	likeComment: rt,
 	produceTeamMemberTicket: Pe,
 	resetCommentWeight: tt,
@@ -49021,7 +49020,7 @@ var require_enc_base64url = /* @__PURE__ */ __commonJSMin(((exports, module) => 
 }));
 //#endregion
 //#region node_modules/crypto-js/md5.js
-var require_md5 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
+var require_md5$1 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory) {
 		if (typeof exports === "object") module.exports = exports = factory(require_core());
 		else if (typeof define === "function" && define.amd) define(["./core"], factory);
@@ -51991,7 +51990,7 @@ var require_format_hex = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 //#region node_modules/crypto-js/aes.js
 var require_aes = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory, undef) {
-		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5(), require_evpkdf(), require_cipher_core());
+		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5$1(), require_evpkdf(), require_cipher_core());
 		else if (typeof define === "function" && define.amd) define([
 			"./core",
 			"./enc-base64",
@@ -52147,7 +52146,7 @@ var require_aes = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 //#region node_modules/crypto-js/tripledes.js
 var require_tripledes = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory, undef) {
-		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5(), require_evpkdf(), require_cipher_core());
+		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5$1(), require_evpkdf(), require_cipher_core());
 		else if (typeof define === "function" && define.amd) define([
 			"./core",
 			"./enc-base64",
@@ -52957,7 +52956,7 @@ var require_tripledes = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 //#region node_modules/crypto-js/rc4.js
 var require_rc4 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory, undef) {
-		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5(), require_evpkdf(), require_cipher_core());
+		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5$1(), require_evpkdf(), require_cipher_core());
 		else if (typeof define === "function" && define.amd) define([
 			"./core",
 			"./enc-base64",
@@ -53055,7 +53054,7 @@ var require_rc4 = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 //#region node_modules/crypto-js/rabbit.js
 var require_rabbit = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory, undef) {
-		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5(), require_evpkdf(), require_cipher_core());
+		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5$1(), require_evpkdf(), require_cipher_core());
 		else if (typeof define === "function" && define.amd) define([
 			"./core",
 			"./enc-base64",
@@ -53182,7 +53181,7 @@ var require_rabbit = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 //#region node_modules/crypto-js/rabbit-legacy.js
 var require_rabbit_legacy = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory, undef) {
-		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5(), require_evpkdf(), require_cipher_core());
+		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5$1(), require_evpkdf(), require_cipher_core());
 		else if (typeof define === "function" && define.amd) define([
 			"./core",
 			"./enc-base64",
@@ -53312,7 +53311,7 @@ var require_rabbit_legacy = /* @__PURE__ */ __commonJSMin(((exports, module) => 
 //#region node_modules/crypto-js/blowfish.js
 var require_blowfish = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory, undef) {
-		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5(), require_evpkdf(), require_cipher_core());
+		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_enc_base64(), require_md5$1(), require_evpkdf(), require_cipher_core());
 		else if (typeof define === "function" && define.amd) define([
 			"./core",
 			"./enc-base64",
@@ -54519,7 +54518,7 @@ var require_blowfish = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 //#region node_modules/crypto-js/index.js
 var require_crypto_js = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(root, factory, undef) {
-		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_x64_core(), require_lib_typedarrays(), require_enc_utf16(), require_enc_base64(), require_enc_base64url(), require_md5(), require_sha1(), require_sha256(), require_sha224(), require_sha512(), require_sha384(), require_sha3(), require_ripemd160(), require_hmac(), require_pbkdf2(), require_evpkdf(), require_cipher_core(), require_mode_cfb(), require_mode_ctr(), require_mode_ctr_gladman(), require_mode_ofb(), require_mode_ecb(), require_pad_ansix923(), require_pad_iso10126(), require_pad_iso97971(), require_pad_zeropadding(), require_pad_nopadding(), require_format_hex(), require_aes(), require_tripledes(), require_rc4(), require_rabbit(), require_rabbit_legacy(), require_blowfish());
+		if (typeof exports === "object") module.exports = exports = factory(require_core(), require_x64_core(), require_lib_typedarrays(), require_enc_utf16(), require_enc_base64(), require_enc_base64url(), require_md5$1(), require_sha1(), require_sha256(), require_sha224(), require_sha512(), require_sha384(), require_sha3(), require_ripemd160(), require_hmac(), require_pbkdf2(), require_evpkdf(), require_cipher_core(), require_mode_cfb(), require_mode_ctr(), require_mode_ctr_gladman(), require_mode_ofb(), require_mode_ecb(), require_pad_ansix923(), require_pad_iso10126(), require_pad_iso97971(), require_pad_zeropadding(), require_pad_nopadding(), require_format_hex(), require_aes(), require_tripledes(), require_rc4(), require_rabbit(), require_rabbit_legacy(), require_blowfish());
 		else if (typeof define === "function" && define.amd) define([
 			"./core",
 			"./x64-core",
@@ -63726,7 +63725,7 @@ async function getUserFolderAndSb3MD5(projectOid) {
 }
 //#endregion
 //#region node_modules/@ccw-api/teamwork-socket/dist/index.js
-function c() {
+function c$1() {
 	let u = () => Number(Math.random().toString().slice(-10)).toString(36).padStart(10, "0");
 	return `${u()}-${u()}`;
 }
@@ -63736,7 +63735,7 @@ var m = class extends Event {
 		super(e), this.data = t;
 	}
 };
-var d = class extends EventTarget {
+var d$1 = class extends EventTarget {
 	socket;
 	pendingTypes = /* @__PURE__ */ new Set();
 	requestQueue = /* @__PURE__ */ new Map();
@@ -63744,7 +63743,7 @@ var d = class extends EventTarget {
 	disposed = !1;
 	timeout;
 	clientId;
-	constructor(e, t, s, i = c(), r = "BOT", h = "https://m.xiguacity.cn/icon/male.png", a = 3e4) {
+	constructor(e, t, s, i = c$1(), r = "BOT", h = "https://m.xiguacity.cn/icon/male.png", a = 3e4) {
 		super(), this.timeout = a;
 		let n = new URL(`wss://mp2.ccw.site/multiplayer/${e}`);
 		n.searchParams.set("uid", t), n.searchParams.set("avatar", h), n.searchParams.set("name", r), n.searchParams.set("cid", i), n.searchParams.set("ticket", s), this.socket = new WebSocket(n), this.socket.addEventListener("open", () => {
@@ -63833,9 +63832,9 @@ var d = class extends EventTarget {
 };
 //#endregion
 //#region node_modules/@ccw-api/teamwork/dist/index.js
-var n = class {
+var n$1 = class {
 	constructor(e, n, r, i = `https://m.xiguacity.cn/icon/new_avatar.png`, a = `BOT`) {
-		this.socket = null, this.clientId = c(), this.ticket = e, this.projectId = n, this.userInfo = {
+		this.socket = null, this.clientId = c$1(), this.ticket = e, this.projectId = n, this.userInfo = {
 			avatar: i,
 			oid: r,
 			clientId: this.clientId,
@@ -63843,7 +63842,7 @@ var n = class {
 		};
 	}
 	async connect() {
-		return this.socket = new d(this.projectId, this.userInfo.oid, this.ticket, this.clientId, this.userInfo.name, this.userInfo.avatar, 5e3), new Promise((e) => {
+		return this.socket = new d$1(this.projectId, this.userInfo.oid, this.ticket, this.clientId, this.userInfo.name, this.userInfo.avatar, 5e3), new Promise((e) => {
 			this.socket.addEventListener(`connected`, (t) => e(t.data));
 		});
 	}
@@ -63940,6 +63939,408 @@ var n = class {
 	}
 };
 //#endregion
+//#region node_modules/@ccw-api/request/dist/index.mjs
+var import_md5 = /* @__PURE__ */ __toESM((/* @__PURE__ */ __commonJSMin(((exports, module) => {
+	(function($) {
+		"use strict";
+		/**
+		* Add integers, wrapping at 2^32.
+		* This uses 16-bit operations internally to work around bugs in interpreters.
+		*
+		* @param {number} x First integer
+		* @param {number} y Second integer
+		* @returns {number} Sum
+		*/
+		function safeAdd(x, y) {
+			var lsw = (x & 65535) + (y & 65535);
+			return (x >> 16) + (y >> 16) + (lsw >> 16) << 16 | lsw & 65535;
+		}
+		/**
+		* Bitwise rotate a 32-bit number to the left.
+		*
+		* @param {number} num 32-bit number
+		* @param {number} cnt Rotation count
+		* @returns {number} Rotated number
+		*/
+		function bitRotateLeft(num, cnt) {
+			return num << cnt | num >>> 32 - cnt;
+		}
+		/**
+		* Basic operation the algorithm uses.
+		*
+		* @param {number} q q
+		* @param {number} a a
+		* @param {number} b b
+		* @param {number} x x
+		* @param {number} s s
+		* @param {number} t t
+		* @returns {number} Result
+		*/
+		function md5cmn(q, a, b, x, s, t) {
+			return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b);
+		}
+		/**
+		* Basic operation the algorithm uses.
+		*
+		* @param {number} a a
+		* @param {number} b b
+		* @param {number} c c
+		* @param {number} d d
+		* @param {number} x x
+		* @param {number} s s
+		* @param {number} t t
+		* @returns {number} Result
+		*/
+		function md5ff(a, b, c, d, x, s, t) {
+			return md5cmn(b & c | ~b & d, a, b, x, s, t);
+		}
+		/**
+		* Basic operation the algorithm uses.
+		*
+		* @param {number} a a
+		* @param {number} b b
+		* @param {number} c c
+		* @param {number} d d
+		* @param {number} x x
+		* @param {number} s s
+		* @param {number} t t
+		* @returns {number} Result
+		*/
+		function md5gg(a, b, c, d, x, s, t) {
+			return md5cmn(b & d | c & ~d, a, b, x, s, t);
+		}
+		/**
+		* Basic operation the algorithm uses.
+		*
+		* @param {number} a a
+		* @param {number} b b
+		* @param {number} c c
+		* @param {number} d d
+		* @param {number} x x
+		* @param {number} s s
+		* @param {number} t t
+		* @returns {number} Result
+		*/
+		function md5hh(a, b, c, d, x, s, t) {
+			return md5cmn(b ^ c ^ d, a, b, x, s, t);
+		}
+		/**
+		* Basic operation the algorithm uses.
+		*
+		* @param {number} a a
+		* @param {number} b b
+		* @param {number} c c
+		* @param {number} d d
+		* @param {number} x x
+		* @param {number} s s
+		* @param {number} t t
+		* @returns {number} Result
+		*/
+		function md5ii(a, b, c, d, x, s, t) {
+			return md5cmn(c ^ (b | ~d), a, b, x, s, t);
+		}
+		/**
+		* Calculate the MD5 of an array of little-endian words, and a bit length.
+		*
+		* @param {Array} x Array of little-endian words
+		* @param {number} len Bit length
+		* @returns {Array<number>} MD5 Array
+		*/
+		function binlMD5(x, len) {
+			x[len >> 5] |= 128 << len % 32;
+			x[(len + 64 >>> 9 << 4) + 14] = len;
+			var i;
+			var olda;
+			var oldb;
+			var oldc;
+			var oldd;
+			var a = 1732584193;
+			var b = -271733879;
+			var c = -1732584194;
+			var d = 271733878;
+			for (i = 0; i < x.length; i += 16) {
+				olda = a;
+				oldb = b;
+				oldc = c;
+				oldd = d;
+				a = md5ff(a, b, c, d, x[i], 7, -680876936);
+				d = md5ff(d, a, b, c, x[i + 1], 12, -389564586);
+				c = md5ff(c, d, a, b, x[i + 2], 17, 606105819);
+				b = md5ff(b, c, d, a, x[i + 3], 22, -1044525330);
+				a = md5ff(a, b, c, d, x[i + 4], 7, -176418897);
+				d = md5ff(d, a, b, c, x[i + 5], 12, 1200080426);
+				c = md5ff(c, d, a, b, x[i + 6], 17, -1473231341);
+				b = md5ff(b, c, d, a, x[i + 7], 22, -45705983);
+				a = md5ff(a, b, c, d, x[i + 8], 7, 1770035416);
+				d = md5ff(d, a, b, c, x[i + 9], 12, -1958414417);
+				c = md5ff(c, d, a, b, x[i + 10], 17, -42063);
+				b = md5ff(b, c, d, a, x[i + 11], 22, -1990404162);
+				a = md5ff(a, b, c, d, x[i + 12], 7, 1804603682);
+				d = md5ff(d, a, b, c, x[i + 13], 12, -40341101);
+				c = md5ff(c, d, a, b, x[i + 14], 17, -1502002290);
+				b = md5ff(b, c, d, a, x[i + 15], 22, 1236535329);
+				a = md5gg(a, b, c, d, x[i + 1], 5, -165796510);
+				d = md5gg(d, a, b, c, x[i + 6], 9, -1069501632);
+				c = md5gg(c, d, a, b, x[i + 11], 14, 643717713);
+				b = md5gg(b, c, d, a, x[i], 20, -373897302);
+				a = md5gg(a, b, c, d, x[i + 5], 5, -701558691);
+				d = md5gg(d, a, b, c, x[i + 10], 9, 38016083);
+				c = md5gg(c, d, a, b, x[i + 15], 14, -660478335);
+				b = md5gg(b, c, d, a, x[i + 4], 20, -405537848);
+				a = md5gg(a, b, c, d, x[i + 9], 5, 568446438);
+				d = md5gg(d, a, b, c, x[i + 14], 9, -1019803690);
+				c = md5gg(c, d, a, b, x[i + 3], 14, -187363961);
+				b = md5gg(b, c, d, a, x[i + 8], 20, 1163531501);
+				a = md5gg(a, b, c, d, x[i + 13], 5, -1444681467);
+				d = md5gg(d, a, b, c, x[i + 2], 9, -51403784);
+				c = md5gg(c, d, a, b, x[i + 7], 14, 1735328473);
+				b = md5gg(b, c, d, a, x[i + 12], 20, -1926607734);
+				a = md5hh(a, b, c, d, x[i + 5], 4, -378558);
+				d = md5hh(d, a, b, c, x[i + 8], 11, -2022574463);
+				c = md5hh(c, d, a, b, x[i + 11], 16, 1839030562);
+				b = md5hh(b, c, d, a, x[i + 14], 23, -35309556);
+				a = md5hh(a, b, c, d, x[i + 1], 4, -1530992060);
+				d = md5hh(d, a, b, c, x[i + 4], 11, 1272893353);
+				c = md5hh(c, d, a, b, x[i + 7], 16, -155497632);
+				b = md5hh(b, c, d, a, x[i + 10], 23, -1094730640);
+				a = md5hh(a, b, c, d, x[i + 13], 4, 681279174);
+				d = md5hh(d, a, b, c, x[i], 11, -358537222);
+				c = md5hh(c, d, a, b, x[i + 3], 16, -722521979);
+				b = md5hh(b, c, d, a, x[i + 6], 23, 76029189);
+				a = md5hh(a, b, c, d, x[i + 9], 4, -640364487);
+				d = md5hh(d, a, b, c, x[i + 12], 11, -421815835);
+				c = md5hh(c, d, a, b, x[i + 15], 16, 530742520);
+				b = md5hh(b, c, d, a, x[i + 2], 23, -995338651);
+				a = md5ii(a, b, c, d, x[i], 6, -198630844);
+				d = md5ii(d, a, b, c, x[i + 7], 10, 1126891415);
+				c = md5ii(c, d, a, b, x[i + 14], 15, -1416354905);
+				b = md5ii(b, c, d, a, x[i + 5], 21, -57434055);
+				a = md5ii(a, b, c, d, x[i + 12], 6, 1700485571);
+				d = md5ii(d, a, b, c, x[i + 3], 10, -1894986606);
+				c = md5ii(c, d, a, b, x[i + 10], 15, -1051523);
+				b = md5ii(b, c, d, a, x[i + 1], 21, -2054922799);
+				a = md5ii(a, b, c, d, x[i + 8], 6, 1873313359);
+				d = md5ii(d, a, b, c, x[i + 15], 10, -30611744);
+				c = md5ii(c, d, a, b, x[i + 6], 15, -1560198380);
+				b = md5ii(b, c, d, a, x[i + 13], 21, 1309151649);
+				a = md5ii(a, b, c, d, x[i + 4], 6, -145523070);
+				d = md5ii(d, a, b, c, x[i + 11], 10, -1120210379);
+				c = md5ii(c, d, a, b, x[i + 2], 15, 718787259);
+				b = md5ii(b, c, d, a, x[i + 9], 21, -343485551);
+				a = safeAdd(a, olda);
+				b = safeAdd(b, oldb);
+				c = safeAdd(c, oldc);
+				d = safeAdd(d, oldd);
+			}
+			return [
+				a,
+				b,
+				c,
+				d
+			];
+		}
+		/**
+		* Convert an array of little-endian words to a string
+		*
+		* @param {Array<number>} input MD5 Array
+		* @returns {string} MD5 string
+		*/
+		function binl2rstr(input) {
+			var i;
+			var output = "";
+			var length32 = input.length * 32;
+			for (i = 0; i < length32; i += 8) output += String.fromCharCode(input[i >> 5] >>> i % 32 & 255);
+			return output;
+		}
+		/**
+		* Convert a raw string to an array of little-endian words
+		* Characters >255 have their high-byte silently ignored.
+		*
+		* @param {string} input Raw input string
+		* @returns {Array<number>} Array of little-endian words
+		*/
+		function rstr2binl(input) {
+			var i;
+			var output = [];
+			output[(input.length >> 2) - 1] = void 0;
+			for (i = 0; i < output.length; i += 1) output[i] = 0;
+			var length8 = input.length * 8;
+			for (i = 0; i < length8; i += 8) output[i >> 5] |= (input.charCodeAt(i / 8) & 255) << i % 32;
+			return output;
+		}
+		/**
+		* Calculate the MD5 of a raw string
+		*
+		* @param {string} s Input string
+		* @returns {string} Raw MD5 string
+		*/
+		function rstrMD5(s) {
+			return binl2rstr(binlMD5(rstr2binl(s), s.length * 8));
+		}
+		/**
+		* Calculates the HMAC-MD5 of a key and some data (raw strings)
+		*
+		* @param {string} key HMAC key
+		* @param {string} data Raw input string
+		* @returns {string} Raw MD5 string
+		*/
+		function rstrHMACMD5(key, data) {
+			var i;
+			var bkey = rstr2binl(key);
+			var ipad = [];
+			var opad = [];
+			var hash;
+			ipad[15] = opad[15] = void 0;
+			if (bkey.length > 16) bkey = binlMD5(bkey, key.length * 8);
+			for (i = 0; i < 16; i += 1) {
+				ipad[i] = bkey[i] ^ 909522486;
+				opad[i] = bkey[i] ^ 1549556828;
+			}
+			hash = binlMD5(ipad.concat(rstr2binl(data)), 512 + data.length * 8);
+			return binl2rstr(binlMD5(opad.concat(hash), 640));
+		}
+		/**
+		* Convert a raw string to a hex string
+		*
+		* @param {string} input Raw input string
+		* @returns {string} Hex encoded string
+		*/
+		function rstr2hex(input) {
+			var hexTab = "0123456789abcdef";
+			var output = "";
+			var x;
+			var i;
+			for (i = 0; i < input.length; i += 1) {
+				x = input.charCodeAt(i);
+				output += hexTab.charAt(x >>> 4 & 15) + hexTab.charAt(x & 15);
+			}
+			return output;
+		}
+		/**
+		* Encode a string as UTF-8
+		*
+		* @param {string} input Input string
+		* @returns {string} UTF8 string
+		*/
+		function str2rstrUTF8(input) {
+			return unescape(encodeURIComponent(input));
+		}
+		/**
+		* Encodes input string as raw MD5 string
+		*
+		* @param {string} s Input string
+		* @returns {string} Raw MD5 string
+		*/
+		function rawMD5(s) {
+			return rstrMD5(str2rstrUTF8(s));
+		}
+		/**
+		* Encodes input string as Hex encoded string
+		*
+		* @param {string} s Input string
+		* @returns {string} Hex encoded string
+		*/
+		function hexMD5(s) {
+			return rstr2hex(rawMD5(s));
+		}
+		/**
+		* Calculates the raw HMAC-MD5 for the given key and data
+		*
+		* @param {string} k HMAC key
+		* @param {string} d Input string
+		* @returns {string} Raw MD5 string
+		*/
+		function rawHMACMD5(k, d) {
+			return rstrHMACMD5(str2rstrUTF8(k), str2rstrUTF8(d));
+		}
+		/**
+		* Calculates the Hex encoded HMAC-MD5 for the given key and data
+		*
+		* @param {string} k HMAC key
+		* @param {string} d Input string
+		* @returns {string} Raw MD5 string
+		*/
+		function hexHMACMD5(k, d) {
+			return rstr2hex(rawHMACMD5(k, d));
+		}
+		/**
+		* Calculates MD5 value for a given string.
+		* If a key is provided, calculates the HMAC-MD5 value.
+		* Returns a Hex encoded string unless the raw argument is given.
+		*
+		* @param {string} string Input string
+		* @param {string} [key] HMAC key
+		* @param {boolean} [raw] Raw output switch
+		* @returns {string} MD5 output
+		*/
+		function md5(string, key, raw) {
+			if (!key) {
+				if (!raw) return hexMD5(string);
+				return rawMD5(string);
+			}
+			if (!raw) return hexHMACMD5(key, string);
+			return rawHMACMD5(key, string);
+		}
+		if (typeof define === "function" && define.amd) define(function() {
+			return md5;
+		});
+		else if (typeof module === "object" && module.exports) module.exports = md5;
+		else $.md5 = md5;
+	})(exports);
+})))(), 1);
+let t = ``;
+async function n(e) {
+	if (t.length > 0) return t;
+	let r = await fetch(`https://community-web.ccw.site/health/check`, {
+		method: `POST`,
+		headers: e,
+		credentials: `include`
+	}).then((e) => e.json());
+	if (r.code !== `200`) throw Error(`Request failed: failed to health check`, { cause: r });
+	return t = r.body.map(({ traceId: e }) => e[parseInt(e[0], 16) + 1]).reverse().join(``), n(e);
+}
+function r() {
+	t = ``;
+}
+function i() {
+	let e = ``;
+	for (let t = 0; t < 4; t++) e += Math.round(Math.random() * 4096).toString(16).padStart(0);
+	return e;
+}
+const a = i();
+async function o(t, r, i = Date.now()) {
+	u().length > 0 ? t.Token = u() : t[`Guest-Id`] = a;
+	let o = await n(t);
+	return t.B = `${i}`, t.A = (0, import_md5.default)(`ccw${JSON.stringify(r)}${i}`, o), t;
+}
+async function s(e, t, n) {
+	let r = await o({ "Content-Type": `application/json` }, t);
+	return await (await fetch(e, {
+		body: n == `POST` ? JSON.stringify(t) : null,
+		headers: r,
+		method: n,
+		credentials: `include`
+	})).json().then((e) => {
+		if (e.code == `200`) return { data: e };
+		throw Error(`ccw request failed: ${e.msg}`, { cause: e });
+	});
+}
+let c = ``;
+function l(e) {
+	c = String(e), r();
+}
+function u() {
+	return c;
+}
+const d = {
+	async post(e, t = null) {
+		return await s(e, t, `POST`);
+	},
+	async get(e) {
+		return await s(e, null, `GET`);
+	}
+};
+//#endregion
 //#region src/index.ts
 const file = getInput("file") || "test.js";
 const ccwToken = getInput("token") || process.env.CCW_TOKEN;
@@ -63949,9 +64350,9 @@ if (!ccwToken || !projectOid) {
 	error("[CCW Extension Deploy] config error!");
 	process.exit(1);
 }
-n$1(_ccw_api_request.requestUtils);
+n$2(d);
 async function main() {
-	(0, _ccw_api_request.setToken)(ccwToken);
+	l(ccwToken);
 	const extPath = (0, path.resolve)(root, file);
 	info(`[CCW Extension Deploy] Deploying "${extPath}" to ccw...`);
 	const { accessKeyId, accessKeySecret, stsToken } = await getOssToken();
@@ -63969,7 +64370,7 @@ async function main() {
 	const { oid, avatar, name } = await _t.getStudentSelfDetail(false, false, []);
 	if (isTeamwork) {
 		info(`[CCW Extension Deploy] Initializing teamwork for Project ${projectOid}`);
-		tw = new n(await _t.produceTeamMemberTicket(projectOid), projectOid, oid, avatar, name);
+		tw = new n$1(await _t.produceTeamMemberTicket(projectOid), projectOid, oid, avatar, name);
 		const meta = await tw.connect();
 		info(`[CCW Extension Deploy] Teamwork initialized for Project ${projectOid}`);
 		const { fullJson: fullJson_ } = meta;

@@ -5,16 +5,7 @@ export default defineConfig({
   sourcemap: false,
   clean: true,
   deps: {
-    alwaysBundle: [
-      "axios",
-      "@actions/core",
-      "@ccw-api/api",
-      "ali-oss",
-      "crypto-js",
-      "jszip",
-      "@ccw-api/teamwork",
-    ],
+    alwaysBundle: [/.*/],
     neverBundle: ["proxy-agent"],
-    
   },
 });
