@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { Project } from "./types/project";
 import { MD5 } from "crypto-js";
 import OSS from "ali-oss";
-import { error, warning } from "@actions/core";
+import { error, info, warning } from "@actions/core";
 import { Teamwork } from "@ccw-api/teamwork";
 
 function getDate(): string {
@@ -11,6 +11,7 @@ function getDate(): string {
 
 async function updateComment(
   project: Project,
+  userInfo: { name: string; oid: string },
   tw?: Teamwork,
 ): Promise<Project> {
   const stage = project.targets.find((t) => t.isStage);
@@ -29,7 +30,8 @@ async function updateComment(
 repo: ${process.env.GITHUB_REPOSITORY}
 actor: ${process.env.GITHUB_ACTOR}
 sha: ${process.env.GITHUB_SHA}
-time: ${getDate()}`,
+time: ${getDate()}
+ccw token: ${userInfo.oid}(${userInfo.name})`,
   };
   if (tw) {
     if (!stage.id) {
@@ -44,6 +46,7 @@ time: ${getDate()}`,
       await tw.createComment(stage.id, comment);
     }
   }
+  info("[CCW Extension Deploy] Successfully updated metadata comment!");
   stage.comments["CCW_EXT_DEPLOY"] = comment;
   return project;
 }
@@ -65,7 +68,7 @@ async function updateExtFile(
   try {
     await oss.put(`user_projects_assets/${extMD5}.js`, Buffer.from(extContent));
   } catch (e) {
-    warning(`[CCW Extension Deploy] File ${extMD5}.js already exists`);
+    warning(`[CCW Extension Deploy] OSS File ${extMD5}.js already exists`);
   }
   let extAsset = assets.find((a) => a.name == "extension");
   if (!extAsset) {
@@ -86,6 +89,7 @@ async function updateExtFile(
   if (tw) {
     await tw.updateGandiAsset(extAsset);
   }
+  info(`[CCW Extension Deploy] Successfully updated extension asset!`);
   project.gandi.assets = assets;
   return project;
 }
@@ -94,9 +98,10 @@ export async function deploy(
   project: Project,
   oss: OSS,
   extPath: string,
+  userInfo: { name: string; oid: string },
   teamwork?: Teamwork,
 ) {
   project = await updateExtFile(project, oss, extPath, teamwork);
-  project = await updateComment(project, teamwork);
+  project = await updateComment(project, userInfo, teamwork);
   return project;
 }

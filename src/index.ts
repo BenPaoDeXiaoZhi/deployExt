@@ -1,6 +1,6 @@
 import { error, getInput, info } from "@actions/core";
 import { resolve } from "path";
-import { setToken } from "@ccw-api/api";
+import { communityWeb, setRequestUtils } from "@ccw-api/api";
 import OSS from "ali-oss";
 import { getOssToken } from "./getOssToken";
 import { loadProject } from "./loadProject";
@@ -9,6 +9,7 @@ import { deploy } from "./deploy";
 import { getUserFolderAndSb3MD5 } from "./resolveProjectUrl";
 import { Teamwork } from "@ccw-api/teamwork";
 import { Project } from "./types/project";
+import { requestUtils, setToken } from "@ccw-api/request";
 
 const file = getInput("file") || "test.js";
 const ccwToken = getInput("token") || process.env.CCW_TOKEN;
@@ -19,6 +20,8 @@ if (!ccwToken || !projectOid) {
   error("[CCW Extension Deploy] config error!");
   process.exit(1);
 }
+
+setRequestUtils(requestUtils);
 
 async function main() {
   setToken(ccwToken);
@@ -37,19 +40,29 @@ async function main() {
     await getUserFolderAndSb3MD5(projectOid);
   let project: Project;
   let tw: Teamwork | null;
+  const { oid, avatar, name } = await communityWeb.getStudentSelfDetail(
+    false,
+    false,
+    [],
+  );
   if (isTeamwork) {
     info(
       `[CCW Extension Deploy] Initializing teamwork for Project ${projectOid}`,
     );
-    tw = new Teamwork(ccwToken, projectOid);
+
+    const ticket = await communityWeb.produceTeamMemberTicket(projectOid);
+    tw = new Teamwork(ticket, projectOid, oid, avatar, name);
     const meta: any = await tw.connect();
+    info(
+      `[CCW Extension Deploy] Teamwork initialized for Project ${projectOid}`,
+    );
     const { fullJson: fullJson_ } = meta;
     const fullJson = JSON.parse(fullJson_);
     project = fullJson;
   } else {
     project = await loadProject(userFolder, sb3MD5);
   }
-  project = await deploy(project, oss, extPath, tw);
+  project = await deploy(project, oss, extPath, { name, oid }, tw);
   if (!tw) {
     await saveProject(oss, userFolder, sb3MD5, project, isTeamwork);
   }
